@@ -8,3 +8,8 @@
 - "logged required things to log and now need to work on html" - logged all needed parts. still need to put things in local storage. Now need to append results and a div
 - "added additional html elements"  - nothing much to report here. just messed with html
 - "appended cities to localstorage" - created mini function that can append multiple cities to local storage 
+- "added live deployment" - going to need to resubmit this assignment 
+
+# live deployment 
+
+https://waynecharr.github.io/Weather_Generator/

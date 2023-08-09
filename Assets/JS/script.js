@@ -2,24 +2,28 @@
 var userInputEl = document.querySelector('#city');
 var apiKey = 'ba8d5e210ab6f547cf3feb9fbea86c4c';
 
+var cityArray = JSON.parse(localStorage.getItem('cities')) || [];
+
+var citiesContainer = document.getElementById('searches'); 
+
+cityArray.forEach(function(city) {
+    var button = document.createElement('button');
+    button.textContent = city;
+    button.addEventListener('click', function() {
+        search(city);
+    });
+    citiesContainer.appendChild(button);
+});
+
 document.querySelector('#searchButton').addEventListener('click', search)
-    // var city = userInputEl.value;
   
-    function search(){
+    function search(city){
         var city = userInputEl.value;
         localStorage.setItem('city', city);
-
-        // var cityArray = [];
-        // cityArray.push(city);
-        // localStorage.setItem('cities', JSON.stringify(cityArray));
 
         var cityArray = JSON.parse(localStorage.getItem('cities')) || [];
         cityArray.push(city);
         localStorage.setItem('cities', JSON.stringify(cityArray));
-
-
-
-
 
 
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`)
@@ -57,13 +61,24 @@ document.querySelector('#searchButton').addEventListener('click', search)
                 console.log('Humidity:', humidity);
                 console.log('Wind Speed:', windSpeed);
 
-                var weatherBox = document.querySelector('.weather');
+
+                var timestamp = 1691625600;
+                var dateObject = new Date(timestamp * 1000);
+
+                var formattedDate = (dateObject.getMonth() + 1).toString().padStart(2, '0') +
+                '/' + (dateObject.getDate()).toString().padStart(2, '0') +
+                '/' + dateObject.getFullYear();
+
+                console.log(formattedDate);
+
+                // var weatherBox = document.querySelector('.weather');
                 var icon = document.createElement("img");
                 icon.setAttribute("src", `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`);
                 document.body.appendChild(icon);
 
                 var cityDateEl = document.querySelector('#city-date');
-                cityDateEl.innerHTML = city + "(" + date + ") " 
+                cityDateEl.innerHTML = city + " (" + formattedDate + ")";
+                cityDateEl.appendChild(icon);
                 var tempEl = document.querySelector('#temp');
                 tempEl.textContent = "Temp: " + temperature + "°F"
                 var windEl = document.querySelector('#wind');
