@@ -2,14 +2,32 @@
 var userInputEl = document.querySelector('#city');
 var apiKey = 'ba8d5e210ab6f547cf3feb9fbea86c4c';
 
-document.querySelector('#searchButton').addEventListener('click', function() {
-    var city = userInputEl.value;
+document.querySelector('#searchButton').addEventListener('click', search)
+    // var city = userInputEl.value;
   
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`)
+    function search(){
+        var city = userInputEl.value;
+        localStorage.setItem('city', city);
+
+        // var cityArray = [];
+        // cityArray.push(city);
+        // localStorage.setItem('cities', JSON.stringify(cityArray));
+
+        var cityArray = JSON.parse(localStorage.getItem('cities')) || [];
+        cityArray.push(city);
+        localStorage.setItem('cities', JSON.stringify(cityArray));
+
+
+
+
+
+
+        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`)
       .then(function (response) {
         return response.json();
       })
       .then(function (data) {
+        console.log(data);
         if (data.length > 0) {
             var latitude = data[0].lat; 
             var longitude = data[0].lon; 
@@ -26,7 +44,7 @@ document.querySelector('#searchButton').addEventListener('click', function() {
 
                 var forecast = data.list[0];
                 var city = data.city.name;
-                var date = forecast.dt_txt;
+                var date = forecast.dt;
                 var weatherIcon = forecast.weather[0].icon;
                 var temperature = forecast.main.temp;
                 var humidity = forecast.main.humidity;
@@ -39,9 +57,13 @@ document.querySelector('#searchButton').addEventListener('click', function() {
                 console.log('Humidity:', humidity);
                 console.log('Wind Speed:', windSpeed);
 
-                var cityDateEl = document.querySelector('#city-date');
-                cityDateEl.textContent = city + "(" + date + ") " + weatherIcon
+                var weatherBox = document.querySelector('.weather');
+                var icon = document.createElement("img");
+                icon.setAttribute("src", `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`);
+                document.body.appendChild(icon);
 
+                var cityDateEl = document.querySelector('#city-date');
+                cityDateEl.innerHTML = city + "(" + date + ") " 
                 var tempEl = document.querySelector('#temp');
                 tempEl.textContent = "Temp: " + temperature + "°F"
                 var windEl = document.querySelector('#wind');
@@ -56,6 +78,9 @@ document.querySelector('#searchButton').addEventListener('click', function() {
                 });
 
                 noonForecasts.slice(0, 5).forEach(function(noonForecast) {
+                    var icon = document.createElement("img");
+                    icon.setAttribute("src", `https://openweathermap.org/img/wn/${noonForecast.weather[0].icon}@2x.png`);
+                    document.body.appendChild(icon);
                     console.log('City:', city);
                     console.log('Date:', noonForecast.dt_txt);
                     console.log('Weather Icon:', noonForecast.weather[0].icon);
@@ -71,4 +96,4 @@ document.querySelector('#searchButton').addEventListener('click', function() {
           }
       });
 
-  });
+  };
