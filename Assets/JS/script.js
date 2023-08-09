@@ -10,6 +10,15 @@ document.querySelector('#searchButton').addEventListener('click', function() {
         return response.json();
       })
       .then(function (data) {
-        console.log(data);
+        if (data.length > 0) {
+            var latitude = data[0].lat; 
+            var longitude = data[0].lon; 
+
+            console.log('Latitude:', latitude);
+            console.log('Longitude:', longitude);
+        
+        } else {
+            console.log('No results found.');
+          }
       });
   });
