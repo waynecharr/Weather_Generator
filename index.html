@@ -7,11 +7,22 @@
     <link rel="stylesheet" type="text/css" href="./Assets/CSS/styles.css" />
 </head>
 <body>
-    <header>
+    <header class="has-background-info-dark p-4">
+        <h1 class="is-size-3 has-text-centered has-text-light"><b>Weather Dashboard</b></h1>
     </header>
-    <label for=""></label>
-    <input type="text" id="city">
-    <button id="searchButton">Search</button>
+
+    <div>
+        <label for=""></label>
+        <input type="text" id="city">
+        <button id="searchButton">Search</button>
+    </div>
+
+    <div>
+        <p id="city-date"></p>
+        <p id="temp"></p>
+        <p id="wind"></p>
+        <p id="humidity"></p>
+    </div>
     
 </body>
 <script src="./Assets/JS/script.js"></script>
