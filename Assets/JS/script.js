@@ -17,7 +17,7 @@ cityArray.forEach(function(city) {
 
 document.querySelector('#searchButton').addEventListener('click', search)
   
-    function search(city){
+    function search(){
         var city = userInputEl.value;
         localStorage.setItem('city', city);
 
@@ -26,7 +26,7 @@ document.querySelector('#searchButton').addEventListener('click', search)
         localStorage.setItem('cities', JSON.stringify(cityArray));
 
 
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`)
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`)
       .then(function (response) {
         return response.json();
       })
@@ -39,7 +39,7 @@ document.querySelector('#searchButton').addEventListener('click', search)
             console.log('Latitude:', latitude);
             console.log('Longitude:', longitude);
 
-            fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`)
+            fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`)
             .then(function (response) {
                 return response.json();
               })

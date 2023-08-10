@@ -1,4 +1,5 @@
 # Description
+This week was a tough one. I had a very limited amount of time to complete the homework this week. I got a good chunk of the javascript done, but unfortunately wasn't able to spend the time I wanted to on this assignment. 
 
 # Version History
 
@@ -9,7 +10,12 @@
 - "added additional html elements"  - nothing much to report here. just messed with html
 - "appended cities to localstorage" - created mini function that can append multiple cities to local storage 
 - "added live deployment" - going to need to resubmit this assignment 
+- "updated http to https" - was having trouble running unsecured links in the live git
 
 # live deployment 
 
 https://waynecharr.github.io/Weather_Generator/
+
+#
+
+<img src=Assets/Images/weather_generator.PNG>
